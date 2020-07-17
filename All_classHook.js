@@ -203,7 +203,8 @@ setTimeout(function() {
 	var i;
 	var target_class =[];
 	for ( i = 0; i < class_array.length; i++ ){
-		if ( class_array[i].search("com.") != -1 ) {
+		if ( class_array[i].search("castReceiver") != -1 ) 
+        {
 			target_class.push(class_array[i].replace(/\"/g,""))
         }
 	}
