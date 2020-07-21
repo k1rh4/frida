@@ -1,6 +1,13 @@
  /**
-  * define global objects.
-  */ 
+
+# Refer to https://github.com/google/ssl_logger/blob/master/ssl_logger.py
+# Origin: https://github.com/fanxs-t/Android-SSL_read-write-Hook/blob/master/frida-hook.py
+# Author : Fanxs
+# 2019-12-16
+
+# Rewrite: k1rh4 (2020-0720)
+
+**/
   var SSL_get_fd, SSL_get_session, SSL_SESSION_get_id, getpeername, getsockname, ntohs, ntohl, addresses;
   var necessary_functions = [
       "SSL_get_fd", 
