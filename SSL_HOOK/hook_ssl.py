@@ -25,7 +25,7 @@ from termcolor import colored, cprint
 
 
 #application = ["com.xiaomi.smarthome"]
-application = "com.xiaomi.smarthome"
+application = "com.google.android.gms.ui"
 
 pcap = os.path.join(os.getcwd(),"log.pcap")
 _FRIDA_SCRIPT = open("ssl_hook.js","r").read()
@@ -36,6 +36,7 @@ ssl_sessions        = {}
 requests_queue_list = {}              # queue.Queue(20)
 response            = ""
 response_flag       = False           # True if any response was received
+
 
 def log_pcap(pcap_file, ssl_session_id, function, src_addr, src_port, dst_addr, dst_port, data):
     """Writes the captured data to a pcap file.
@@ -105,6 +106,7 @@ def log_pcap(pcap_file, ssl_session_id, function, src_addr, src_port, dst_addr, 
     else: client_sent += len(data)
     ssl_sessions[ssl_session_id] = (client_sent, server_sent)
 
+
 def dlog_message(data, LOG_INFO):
   PATTERN     = ['session','token','Token','secret','key']
   color_enum  = ['red','green','blue','yellow']
@@ -120,16 +122,16 @@ def dlog_message(data, LOG_INFO):
     print("[%s] "% LOG_INFO )
     print (show_data+"\n")
 
+
 def ssl_hook(message, data):
   p = message["payload"]
   src_addr = socket.inet_ntop(socket.AF_INET, struct.pack(">I", p["src_addr"]))
   dst_addr = socket.inet_ntop(socket.AF_INET, struct.pack(">I", p["dst_addr"]))
-  #print("SSL Session: " + p["ssl_session_id"])
-  #print("[%s] %s:%d --> %s:%d" % (p["function"], src_addr, p["src_port"], dst_addr, p["dst_port"]))
   LOG_INFO = "SSL Session: " + p["ssl_session_id"] + "\n"
   LOG_INFO += "[%s] %s:%d --> %s:%d" % (p["function"], src_addr, p["src_port"], dst_addr, p["dst_port"])
   log_pcap(pcap_file, p["ssl_session_id"], p["function"], p["src_addr"], p["src_port"], p["dst_addr"], p["dst_port"], data)
   dlog_message(data, LOG_INFO)
+
 
 def on_message(message, data):
   if message["type"] == "error":
@@ -156,6 +158,7 @@ def pcap_init():
           ("=I", 228)):           # Data link type (LINKTYPE_IPV4)
       pcap_file.write(struct.pack(writes[0], writes[1]))
   return pcap_file 
+
 
 if __name__ == "__main__":
   # pcap logging
