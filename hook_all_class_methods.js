@@ -1,4 +1,4 @@
-var filterClassName = "castReceiver"
+var filterClassName = "retrofit2"
 var Color = {
 	    RESET: "\x1b[39;49;00m", Black: "0;01", Blue: "4;01", Cyan: "6;01", Gray: "7;11", Green: "2;01", Purple: "5;01", Red: "1;01", Yellow: "3;01",
 	    Light: {
@@ -204,7 +204,7 @@ setTimeout(function() {
 	var i;
 	var target_class =[];
 	for ( i = 0; i < class_array.length; i++ ){
-		if ( class_array[i].search(filterClassname) != -1 ) 
+		if ( class_array[i].search(filterClassName) != -1 ) 
         {
 			target_class.push(class_array[i].replace(/\"/g,""))
         }
