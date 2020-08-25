@@ -1,3 +1,6 @@
+
+var ClassName = "android.content.BroadcastReceiver"
+
 // Script Inspired by https://github.com/0xdea/frida-scripts/tree/master/android-snippets
 function enumAllClasses() {
     var allClasses = [];
@@ -79,7 +82,7 @@ setTimeout(function() {
        
         
 	    // enumerate all methods in a class   
-	    var a = enumMethods("android.content.BroadcastReceiver")
+	    var a = enumMethods(ClassName)
 	    a.forEach(function(s) { 
             methods_return += String(s) + '\n'
 	    });
